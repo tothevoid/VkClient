@@ -1,0 +1,122 @@
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\VkClient.exe.config
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\obj\Debug\VkClient.exe
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\obj\Debug\VkClient.pdb
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\VkClient.exe
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\VkClient.pdb
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\AngleSharp.dll
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.dll
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\VkNet.dll
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\AngleSharp.xml
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.xml
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\bin\Debug\VkNet.xml
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\obj\Debug\MainWindow.g.cs
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\obj\Debug\App.g.cs
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\obj\Debug\VkClient_MarkupCompile.cache
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\obj\Debug\MainWindow.baml
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\obj\Debug\VkClient.g.resources
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\obj\Debug\VkClient.Properties.Resources.resources
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\obj\Debug\VkClient.csproj.GenerateResource.Cache
+C:\Users\ivang\OneDrive\Documents\Visual Studio 2015\Projects\WpfApplication12\WpfApplication12\obj\Debug\VkClient.csprojResolveAssemblyReference.cache
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.csprojResolveAssemblyReference.cache
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\MainWindow.baml
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\MainWindow.g.cs
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\App.g.cs
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient_MarkupCompile.cache
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.g.resources
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.Properties.Resources.resources
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.csproj.GenerateResource.Cache
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.exe
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\VkClient.exe.config
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\VkClient.exe
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\VkClient.pdb
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\AngleSharp.dll
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.dll
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\Newtonsoft.Json.dll
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\VkNet.dll
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\AngleSharp.xml
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.pdb
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.xml
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\Newtonsoft.Json.xml
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\VkNet.xml
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.pdb
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\GeneratedInternalTypeHelper.g.cs
+G:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient_MarkupCompile.lref
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\VkClient.exe.config
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.exe
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.pdb
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\VkClient.exe
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\VkClient.pdb
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\AngleSharp.dll
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.dll
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\Newtonsoft.Json.dll
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\VkNet.dll
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\AngleSharp.xml
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.pdb
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.xml
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\Newtonsoft.Json.xml
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\bin\Debug\VkNet.xml
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.csprojResolveAssemblyReference.cache
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\MainWindow.g.cs
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\App.g.cs
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient_MarkupCompile.cache
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient_MarkupCompile.lref
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\MainWindow.baml
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.g.resources
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.Properties.Resources.resources
+D:\Новая папка (2)\WpfApplication12\WpfApplication12\obj\Debug\VkClient.csproj.GenerateResource.Cache
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\VkClient.exe.config
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\VkClient.exe
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\VkClient.pdb
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\VkClient.exe
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\VkClient.pdb
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\AngleSharp.dll
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.dll
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\VkNet.dll
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\AngleSharp.xml
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\HtmlAgilityPack.xml
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\bin\Debug\VkNet.xml
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\VkClient.csprojResolveAssemblyReference.cache
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\MainWindow.g.cs
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\App.g.cs
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\VkClient_MarkupCompile.cache
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\VkClient_MarkupCompile.lref
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\BaseDictionary.baml
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\MainWindow.baml
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\VkClient.g.resources
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\VkClient.Properties.Resources.resources
+C:\Users\ivang\Desktop\WpfApplication12\WpfApplication12\obj\Debug\VkClient.csproj.GenerateResource.Cache
+C:\Users\ivang\Desktop\VkClient\WpfApplication12\bin\Debug\VkClient.exe.config
+C:\Users\ivang\Desktop\VkClient\WpfApplication12\obj\Debug\VkClient.exe
+C:\Users\ivang\Desktop\VkClient\WpfApplication12\obj\Debug\VkClient.pdb
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\VkClient.exe.config
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.exe
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.pdb
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\VkClient.exe
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\VkClient.pdb
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\AngleSharp.dll
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\HtmlAgilityPack.dll
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\VkNet.dll
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\AngleSharp.xml
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\HtmlAgilityPack.xml
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ivang\Desktop\VkClient\VkClient\bin\Debug\VkNet.xml
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.csprojResolveAssemblyReference.cache
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\MainWindow.g.cs
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\App.g.cs
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient_MarkupCompile.cache
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient_MarkupCompile.lref
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\BaseDictionary.baml
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\MainWindow.baml
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.g.resources
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.Properties.Resources.resources
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.csproj.GenerateResource.Cache

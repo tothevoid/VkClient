@@ -1,0 +1,182 @@
+﻿<Window x:Class="VkClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:local="clr-namespace:VkClient"
+       Title="E1337 VIEWER" Height="450" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+     <!--Title="E1337 VIEWER" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">-->
+    <Grid >
+        <TabControl Margin="10"  >
+            <TabItem Header="Login" Name="LoginTab" Foreground="#FF272525">
+                <Grid  Background="#0f0f0f">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,90,0,0" >
+                        <Label  Content="Login"  HorizontalAlignment="Center" Foreground="#FFF5F3F3" FontFamily="Verdana"/>
+                        <TextBox  Text="{Binding Login}" Width="100" BorderBrush="#FF000102" Height="20" Margin="159,0" FontFamily="Verdana" />
+                        <Label Content="Password" HorizontalAlignment="Center" Foreground="#FFFDF9F9" FontFamily="Verdana"/>
+                        <PasswordBox  x:Name="Password"  Width="100" BorderBrush="Black" Height="21.96" Margin="159,0"/>
+                        <Label Margin="0,10,0,0" Content="Pics quality: " HorizontalAlignment="Center" Foreground="#FFF9F5F5" FontFamily="Verdana"/>
+                        <Button  Margin="0,20,0,0" Content="Enter" Width="50" IsDefault="True" Command="{Binding Auth}" CommandParameter="{Binding ElementName = Password}"  Background="#FF080707" Foreground="White"/>
+                    </StackPanel>
+                    <Image Source="http://www.iconsplace.com/download/white-vkcom-256.png" Margin="0,0,0,250" Height="100" Width="100" />
+                </Grid>
+            </TabItem>
+            <TabItem  Header="Friends" Name="FriendsTab" Visibility="Visible">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <DockPanel LastChildFill="True" Grid.Column="1">
+                        <ListView Name="Chat"  >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel LastChildFill="True">
+                                        <Grid Width="50">
+                                            <StackPanel DockPanel.Dock="Left">
+                                                <TextBlock Text="{Binding Recieved_msg}" FontWeight="Bold" FontSize="12" Padding="4"/>
+                                                <Image  Source="{Binding Recieved_img}" />
+                                            </StackPanel>
+                                            <StackPanel DockPanel.Dock="Right">
+                                                <TextBlock Text="{Binding Sent_msg}" FontSize="12" Padding="4"/>
+                                                <Image DockPanel.Dock="Left" Source="{Binding Sent_img}" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </DockPanel>
+                    <DockPanel LastChildFill="True">
+                        <!--<StackPanel Orientation="Horizontal" DockPanel.Dock="Top">-->
+                            <!--<TextBox DockPanel.Dock="Left" Width="185" Height="20" x:Name="Search_query" TextChanged="Search_query_changed"/>-->
+                            <!--<TextBox DockPanel.Dock="Left" Width="185" Height="20"  x:Name="Search_query"/>
+                        </StackPanel>-->
+                        <!--<ListView Name="Friends" SelectionChanged="Lw_click">-->
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+                            <TextBlock Text="Total: "/>
+                            <TextBlock Text="{Binding TotalFriends}"/>
+                            <TextBlock Text="Online: " Padding="35,0,0,0"/>
+                            <TextBlock Text="{Binding OnlineFriends}" Padding="0,0,17,0"/>
+                            <Button Content="Update" Command="{Binding Reload}"  />
+                        </StackPanel>
+                        <ListView Name="Friends" ItemsSource="{Binding Friends}" >
+                            
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <DockPanel LastChildFill="True">
+                                        <Grid Width="50">
+                                            <Image DockPanel.Dock="Left" Source="{Binding Ref}" />
+                                        </Grid>
+                                        <StackPanel Orientation="Vertical" Width="90">
+                                            <TextBlock Text="{Binding FirstName}" FontWeight="Bold" FontSize="18" Padding="4"/>
+                                            <TextBlock Text="{Binding LastName}" FontSize="14" Padding="4" />
+                                            <Rectangle Stroke="LightGray" Height="2" Width="350" HorizontalAlignment="Center" />
+                                        </StackPanel>
+                                        <Ellipse DockPanel.Dock="Right"   Height="10" Width="10" StrokeThickness="2" Fill="{Binding Status}" />
+                                    </DockPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <!--<TabItem Header="Saved" x:Name="Interface_tab" Visibility="Visible" KeyDown="keyboard_inputs"  >-->
+            <TabItem Header="Saved" x:Name="SavedPhotosTab" Visibility="Visible"   >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="11*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Height="20" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                        <TextBlock Text="User id:  " FontSize="15"  />
+                        <TextBox Width="70" FontSize="14" Text="{Binding UserId}" TextAlignment="Center" IsTabStop="False" />
+                        <!--<Button Width="50" Content="Load" Click="Switch_user_click" VerticalAlignment="Center"/>-->
+                        <Button Width="50" Content="Load" VerticalAlignment="Center" Command="{Binding LoadPhotos}"/>
+                    </StackPanel>
+                    <!--<Button Height ="50" FontSize="30"  Grid.Column="0" Grid.RowSpan="2" Foreground="White" Background="#212428" Content="&lt;" Click="Arrow_click" />-->
+                    <Button Height ="50" FontSize="30"  Grid.Column="0" Grid.RowSpan="2" Foreground="White" Background="#212428" Content="&lt;" Command="{Binding PrevPhoto}"  />
+                    <!--<Button Height ="50" FontSize="30"  Grid.Column="3" Grid.RowSpan="2" Foreground="White" Background="#212428" Content=">" Click="Arrow_click" />-->
+                    <Button Height ="50" FontSize="30"  Grid.Column="3" Grid.RowSpan="2" Foreground="White" Background="#212428" Content=">" Command="{Binding NextPhoto}"  />
+                    <Image Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Source="{Binding Photo}"  Margin="15,15,15,10"/>
+                    <StackPanel Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <!--<Button Click="Liked">-->
+                         <Button>
+                            <TextBlock FontSize="15" Text="♥" />
+                        </Button>
+                        <TextBlock x:Name="Likes" Width="20" FontSize="15" FontFamily="Haettenschweiler"/>
+                        <TextBlock FontSize="15" Width="40" FontFamily="Haettenschweiler" x:Name="current_photo" HorizontalAlignment="Right"/>
+                    </StackPanel>
+                    <TextBlock Grid.ColumnSpan="2" Grid.Row="2" x:Name="Date"  FontSize="15" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
+                    <!--<Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Load more" Foreground="White" Background="#212428"  Click="more_click" Margin="309,12,299,0"/>-->
+                    <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Load more" Foreground="White" Background="#212428"   Margin="309,12,299,0"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Profile" Visibility="Visible">
+                <Grid >
+                    <Grid.RowDefinitions>
+                        <!--<RowDefinition Height="20" />-->
+                        <RowDefinition />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition />
+                        <ColumnDefinition  />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <!--<Border Grid.Row="1" Background="White" BorderThickness="3" BorderBrush="Gray"/>-->
+                    <Image Source="https://vk.com/images/camera_200.png" Margin="5" Grid.Row="0" x:Name="User_avatar" />
+                    <StackPanel Margin="0,20,0,0" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"  >
+                        <TextBlock x:Name="User_name" Text="Abc Defg" FontWeight="Bold" FontSize="18"/>
+                        <TextBlock x:Name="User_status" Text="HEY THERE" FontSize="18"/>
+                        <TextBlock x:Name="User_birthday" Text="Birthday: 17 december 1990" FontWeight="Bold" FontSize="18"/>
+                        <TextBlock x:Name="User_city" Text="Current city: Unknown" FontWeight="Bold" FontSize="18"/>
+                    </StackPanel>
+                    <TextBlock x:Name="User_online"  Margin="0,20,0,0" Text="Online" Grid.Column="4" HorizontalAlignment="Right" Foreground="#FF045AF0"  VerticalAlignment="Top"  />
+                    <Border  CornerRadius="10" Background="CornflowerBlue" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" BorderBrush="Navy" BorderThickness="3">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical" Width="100">
+                                <TextBlock Text="Photos" FontSize="20" HorizontalAlignment="Center"/>
+                                <TextBlock Text="2" x:Name="Photos_count" FontSize="40" HorizontalAlignment="Center" Foreground="Navy"  />
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical"  Width="100">
+                                <TextBlock Text="Videos" FontSize="20" HorizontalAlignment="Center"/>
+                                <TextBlock Text="0" x:Name="Videos_count" FontSize="40" HorizontalAlignment="Center"  Foreground="Navy"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical"  Width="100">
+                                <TextBlock Text="Groups" FontSize="20" HorizontalAlignment="Center"/>
+                                <TextBlock Text="11" x:Name="Groups_count" FontSize="40" HorizontalAlignment="Center"  Foreground="Navy"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical"  Width="100">
+                                <TextBlock Text="Audios" FontSize="20" HorizontalAlignment="Center"/>
+                                <TextBlock Text="91" x:Name="Audios_count"  HorizontalAlignment="Center" FontSize="40"  Foreground="Navy"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Photos" Visibility="Visible">
+                <Grid>
+                    <Image x:Name="Fr_img" Margin="20,20" Height="300" DockPanel.Dock="Top" />
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                        <!--<Button  x:Name="Next"  Content="Prev" Click="Next_click" Height="20" Width="50" />-->
+                        <Button  x:Name="Next"  Content="Prev"  Height="20" Width="50" />
+                        <Button  x:Name="Prev"  Content="Next"  Height="20" Width="50" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
