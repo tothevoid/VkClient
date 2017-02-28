@@ -86,7 +86,7 @@
             <TabItem Header="Saved" x:Name="SavedPhotosTab" Visibility="Visible"   >
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1.2*" />
                         <RowDefinition Height="11*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
@@ -98,26 +98,21 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Height="20" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
                         <TextBlock Text="User id:  " FontSize="15"  />
-                        <TextBox Width="70" FontSize="14" Text="{Binding UserId}" TextAlignment="Center" IsTabStop="False" />
-                        <!--<Button Width="50" Content="Load" Click="Switch_user_click" VerticalAlignment="Center"/>-->
+                        <TextBox Width="70" FontSize="15" Text="{Binding UserId,Mode=TwoWay}" TextAlignment="Center" IsTabStop="False" />
                         <Button Width="50" Content="Load" VerticalAlignment="Center" Command="{Binding LoadPhotos}"/>
                     </StackPanel>
-                    <!--<Button Height ="50" FontSize="30"  Grid.Column="0" Grid.RowSpan="2" Foreground="White" Background="#212428" Content="&lt;" Click="Arrow_click" />-->
                     <Button Height ="50" FontSize="30"  Grid.Column="0" Grid.RowSpan="2" Foreground="White" Background="#212428" Content="&lt;" Command="{Binding PrevPhoto}"  />
-                    <!--<Button Height ="50" FontSize="30"  Grid.Column="3" Grid.RowSpan="2" Foreground="White" Background="#212428" Content=">" Click="Arrow_click" />-->
                     <Button Height ="50" FontSize="30"  Grid.Column="3" Grid.RowSpan="2" Foreground="White" Background="#212428" Content=">" Command="{Binding NextPhoto}"  />
                     <Image Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Source="{Binding Photo}"  Margin="15,15,15,10"/>
                     <StackPanel Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                         <!--<Button Click="Liked">-->
-                         <Button>
-                            <TextBlock FontSize="15" Text="♥" />
-                        </Button>
-                        <TextBlock x:Name="Likes" Width="20" FontSize="15" FontFamily="Haettenschweiler"/>
-                        <TextBlock FontSize="15" Width="40" FontFamily="Haettenschweiler" x:Name="current_photo" HorizontalAlignment="Right"/>
+                        <TextBlock FontSize="15" Text="♥" />
+                        <TextBlock Text="{Binding Likes}" Width="20" FontSize="15" FontFamily="Haettenschweiler"/>
+                        <TextBlock FontSize="15" Width="40" FontFamily="Haettenschweiler" Text="{Binding CurrentPhoto}"  HorizontalAlignment="Right"/>
                     </StackPanel>
-                    <TextBlock Grid.ColumnSpan="2" Grid.Row="2" x:Name="Date"  FontSize="15" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
+                    <TextBlock Grid.ColumnSpan="2" Grid.Row="2" Text="{Binding Date}" FontSize="15" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
                     <!--<Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Load more" Foreground="White" Background="#212428"  Click="more_click" Margin="309,12,299,0"/>-->
-                    <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Load more" Foreground="White" Background="#212428"   Margin="309,12,299,0"/>
+                    <Button Grid.Row="2" Width="75" Grid.Column="1" Grid.ColumnSpan="2" Content="Load more" Foreground="White" Background="#212428" Command="{Binding LoadMore}"  />
                 </Grid>
             </TabItem>
             <TabItem Header="Profile" Visibility="Visible">

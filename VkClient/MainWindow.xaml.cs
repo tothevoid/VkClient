@@ -22,16 +22,10 @@ namespace VkClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        
-    
-       // int avatar_index = 0;
+        // int avatar_index = 0;
+        // long friend_id;
 
-       // long? curr_id;
-       // long friend_id;
-
-      //  ulong _offset = 0;
-
-/*
+        /*
         List<Friend> my_friends = new List<Friend>(); // list of friends
         List<SavedPhoto> pics = new List<SavedPhoto>();
         List<Uri> avatars = new List<Uri>();
@@ -40,7 +34,6 @@ namespace VkClient
         public MainWindow()
         {
             InitializeComponent();
-            Password.Focus();
 
             //Getting instances of ViewModels
             var FrVm = new FriendsVm();
@@ -58,15 +51,6 @@ namespace VkClient
 
         private void Start_click(object sender, RoutedEventArgs e)
         {
-           
-            // api.Account.SetOffline();  it doesn't work 
-           // curr_id = api.UserId; //getting id of current user
-
-            //work with tabs
-          //  Load_profile((long) curr_id);
-           // Get_friends(); // start to get friends of current user
-
-
             /* MESSAGE IMPLEMENTION
             //UNODNE  message loading implemention
             var a =
@@ -138,7 +122,7 @@ namespace VkClient
                  Got_avatars();
              }
 
-             private void Got_avatars() //Load of avatars
+             private void Got_avatars() 
              {
                  avatar_index = 0;
                  avatars.Clear();
@@ -216,14 +200,13 @@ namespace VkClient
 
              }
              */
-        // TODO: Album save
-        // TODO: Img cache
-        // TODO: groups 
-        // TODO: messages
-        // TODO: video
-        // TODO: feed
-        // TODO: img cache
-        // TODO: MVVM implemention
-        // TODO: refactoring
+
+            // TODO: Album save
+            // TODO: Img cache
+            // TODO: Groups 
+            // TODO: Messages
+            // TODO: Video
+            // TODO: Feed
+            // TODO: Img cache
     }
 }

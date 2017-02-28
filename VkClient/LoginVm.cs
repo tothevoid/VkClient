@@ -14,9 +14,9 @@ namespace VkClient
 
     class LoginVm : VmBase
     {
-        public delegate void Get_friends();
+        public delegate void GetFriends();
 
-        public event Get_friends Logged;
+        public event GetFriends Logged;
 
         private string _login;
 
@@ -30,7 +30,6 @@ namespace VkClient
 
         private void TryToAuth(object parameter)
         {
-
             var passbox = parameter as PasswordBox;
             try
             {

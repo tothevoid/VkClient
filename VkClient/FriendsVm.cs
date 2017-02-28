@@ -40,15 +40,15 @@ namespace VkClient
             set { Set(ref _onlineFriends, value); }
         }
 
-        public void Get_friends() //Loading friendlist
+        public void Get_friends() // Getting friend list
         {
             int Count=0;
-            var query = new FriendsGetParams { UserId = api.UserId, Fields = ProfileFields.All }; // getting needed fields  
-            var users = api.Friends.Get(query).OrderByDescending(x => x.Online); //starting to get friends
+            var query = new FriendsGetParams { UserId = api.UserId, Fields = ProfileFields.All }; // Getting needed fields  
+            var users = api.Friends.Get(query).OrderByDescending(x => x.Online); // Friends sort
             foreach (var x in users)
             {
                 SolidColorBrush status;
-                if (x.Online == true) // setting online status color
+                if (x.Online == true) // Setting status color
                     status = x.OnlineMobile == true
                         ? new SolidColorBrush(Colors.CornflowerBlue)
                         : new SolidColorBrush(Colors.DarkGreen);
@@ -57,7 +57,7 @@ namespace VkClient
                     status = new SolidColorBrush(Colors.Red);
                     Count++;
                 }
-                Friend fr = new Friend(x.FirstName, x.LastName, new BitmapImage(x.Photo50), status, x.Id); // get instances of friend's class
+                Friend fr = new Friend(x.FirstName, x.LastName, new BitmapImage(x.Photo50), status, x.Id); // Get instances of friend's class
                 Friends.Add(fr); //adding it to list of all friends
             }
             TotalFriends = Friends.Count;
