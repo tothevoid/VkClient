@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO.Pipes;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
+using VkNet.Enums.SafetyEnums;
 using VkNet.Model;
+using VkNet.Model.RequestParams;
 
 namespace VkClient
 {
@@ -21,6 +28,14 @@ namespace VkClient
         private int _likes;
         private string _date;
         private string _currentPhoto;
+
+        private SolidColorBrush _color;
+
+        public SolidColorBrush Color
+        {
+            get { return _color; }
+            set { Set(ref _color, value); }
+        }
 
         public string CurrentPhoto
         {
@@ -52,14 +67,37 @@ namespace VkClient
             set { Set(ref _photo, value); }
         }
 
-
-
         public ICommand LoadPhotos => new CommandBase(Load);
         public ICommand PrevPhoto => new CommandBase(Prev);
         public ICommand NextPhoto => new CommandBase(Next);
         public ICommand LoadMore => new CommandBase(LoadMorePhotos);
+        public ICommand Like => new CommandBase(SetLike);
 
-
+        private void SetLike(object parameter)
+        {
+            try
+            {
+                if (photoList[_currentPhotoId].IsLiked)
+                {
+                    api.Likes.Delete(LikeObjectType.Photo, photoList[_currentPhotoId].Id, _userid);
+                    photoList[_currentPhotoId].Likes--;
+                    photoList[_currentPhotoId].IsLiked = false;
+                    GetAdditionalInfo(_currentPhotoId);
+                }
+                else
+                {
+                    api.Likes.Add(new LikesAddParams { ItemId = photoList[_currentPhotoId].Id, Type = LikeObjectType.Photo, OwnerId = 17204132 });
+                    photoList[_currentPhotoId].Likes++;
+                    photoList[_currentPhotoId].IsLiked = true;
+                    GetAdditionalInfo(_currentPhotoId);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Too many likes in short time");
+            }
+           
+        }
 
         private void Prev(object parameter)
         {
@@ -83,9 +121,13 @@ namespace VkClient
 
         private void Load(object parameter) // Loading saved photos 
         {
-           if (photoList.Count!=0)
+            if (photoList.Count != 0)
+            {
+                _offset = 0;
                 photoList.Clear();
-           GetSavedPhotos();
+                _currentPhotoId = 0;
+            }
+            GetSavedPhotos();
         }
 
         private void LoadMorePhotos(object parameter)
@@ -106,12 +148,19 @@ namespace VkClient
             };
             var collection = api.Photo.Get(details); // getting all pics
             foreach (var elm in collection)
-                photoList.Add(new SavedPhoto(elm.Photo604, Convert.ToString(elm.CreateTime), elm.Likes.Count, (long)elm.Id));
+            {
+                bool islike = elm.Likes.UserLikes;
+                photoList.Add(new SavedPhoto(elm.Photo604, Convert.ToString(elm.CreateTime), elm.Likes.Count,(long) elm.Id, islike));
+            }
             _offset += 50; // changing offset for next loads
             if (photoList.Count == 50)
             {
                 Photo = new BitmapImage(photoList[0].Link);
                 GetAdditionalInfo(_currentPhotoId);
+            }
+            else
+            {
+                CurrentPhoto = $"{_currentPhotoId + 1} / {photoList.Count}";
             }
         }
 
@@ -120,7 +169,7 @@ namespace VkClient
             Likes = photoList[index].Likes;
             Date = photoList[index].Date;
             CurrentPhoto = $"{index + 1} / {photoList.Count}";
+            Color = photoList[index].IsLiked ? new SolidColorBrush(Colors.Blue) : new SolidColorBrush(Colors.White);
         }
-      
     }
 }

@@ -104,11 +104,16 @@
                     <Button Height ="50" FontSize="30"  Grid.Column="0" Grid.RowSpan="2" Foreground="White" Background="#212428" Content="&lt;" Command="{Binding PrevPhoto}"  />
                     <Button Height ="50" FontSize="30"  Grid.Column="3" Grid.RowSpan="2" Foreground="White" Background="#212428" Content=">" Command="{Binding NextPhoto}"  />
                     <Image Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Source="{Binding Photo}"  Margin="15,15,15,10"/>
-                    <StackPanel Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <StackPanel Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
                         <!--<Button Click="Liked">-->
-                        <TextBlock FontSize="15" Text="♥" />
-                        <TextBlock Text="{Binding Likes}" Width="20" FontSize="15" FontFamily="Haettenschweiler"/>
-                        <TextBlock FontSize="15" Width="40" FontFamily="Haettenschweiler" Text="{Binding CurrentPhoto}"  HorizontalAlignment="Right"/>
+                        <TextBlock FontSize="15" Width="60" FontFamily="Haettenschweiler" Text="{Binding CurrentPhoto}"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <Button Width="50" Background="{Binding Color}" Command="{Binding Like}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Likes}"  FontSize="15" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
+                                <TextBlock  FontSize="15" Text="♥" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        
                     </StackPanel>
                     <TextBlock Grid.ColumnSpan="2" Grid.Row="2" Text="{Binding Date}" FontSize="15" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
                     <!--<Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Load more" Foreground="White" Background="#212428"  Click="more_click" Margin="309,12,299,0"/>-->

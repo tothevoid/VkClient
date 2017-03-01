@@ -1,33 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using VkNet;
-using VkNet.Enums;
-using VkNet.Enums.Filters;
-using VkNet.Enums.SafetyEnums;
-using VkNet.Model;
-using VkNet.Model.RequestParams;
-using VkNet.Utils.AntiCaptcha;
-using Button = System.Windows.Controls.Button;
 
 namespace VkClient
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         // int avatar_index = 0;
         // long friend_id;
 
         /*
-        List<Friend> my_friends = new List<Friend>(); // list of friends
-        List<SavedPhoto> pics = new List<SavedPhoto>();
         List<Uri> avatars = new List<Uri>();
        */
 
@@ -91,11 +75,7 @@ namespace VkClient
 
 
         /*
-             private void more_click(object sender, RoutedEventArgs e) //loading more saved photos
-             {
-                 Get_saved_photos(Convert.ToInt32(user_id.Text));
-             }
-
+           
              private void keyboard_inputs(object sender, KeyEventArgs e)  // keyboard inputs
              {
                  if (e.Key == Key.Left)
@@ -191,14 +171,6 @@ namespace VkClient
                  string curr_search = Search_query.Text;
                  Friends.ItemsSource = my_friends.Where(x => x.FirstName.ToLower().Contains(curr_search.ToLower()) || x.LastName.ToLower().Contains(curr_search.ToLower()));
              }
-
-             private void Liked(object sender, RoutedEventArgs e)
-             {
-                 long photo_id = pics[curr_index].Id;
-                 api.Likes.Add(new LikesAddParams {ItemId = photo_id, Type = LikeObjectType.Photo});
-
-
-             }
              */
 
             // TODO: Album save
@@ -209,4 +181,27 @@ namespace VkClient
             // TODO: Feed
             // TODO: Img cache
     }
+
+    //public class ColorsConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        if (value != null)
+    //        {
+    //            Type type = value.GetType();
+    //            bool isLiked = (bool)type.GetProperty("IsLiked").GetValue(value, null);
+    //            if (isLiked)
+    //                return Brushes.Blue;
+    //            else
+    //                return Brushes.White;
+    //        }
+    //        return Brushes.Transparent;
+
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

@@ -40,13 +40,15 @@ namespace VkClient
         public string Date { get; set; }
         public int Likes { get; set; }
         public long Id { get; set; }
+        public bool IsLiked { get; set; }
 
-        public SavedPhoto(Uri link,string date,int likes,long id)
+        public SavedPhoto(Uri link,string date,int likes,long id,bool il)
         {
             Link = link;
             Date = date;
             Likes = likes;
             Id = id;
+            IsLiked = il;
         }
 
     }
