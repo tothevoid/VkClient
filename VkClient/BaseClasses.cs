@@ -1,18 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using VkNet;
-using VkNet.Enums.Filters;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using VkNet.Model.RequestParams;
+
 
 namespace VkClient
 {

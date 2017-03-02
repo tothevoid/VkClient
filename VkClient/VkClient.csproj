@@ -71,9 +71,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LoadAllVm.cs" />
+    <Compile Include="LoadAllWindow.xaml.cs">
+      <DependentUpon>LoadAllWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SavedPhotoVm.cs" />
     <Compile Include="VmBase.cs" />
-    <Page Include="BaseDictionary.xaml">
+    <Page Include="LoadAllWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

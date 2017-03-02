@@ -115,8 +115,9 @@ C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\MainWindow.g.cs
 C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\App.g.cs
 C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient_MarkupCompile.cache
 C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient_MarkupCompile.lref
-C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\BaseDictionary.baml
 C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\MainWindow.baml
 C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.g.resources
 C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.Properties.Resources.resources
 C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.csproj.GenerateResource.Cache
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\LoadAllWindow.g.cs
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\LoadAllWindow.baml

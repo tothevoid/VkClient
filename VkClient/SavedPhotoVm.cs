@@ -1,19 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO.Pipes;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using VkNet.Enums.SafetyEnums;
-using VkNet.Model;
 using VkNet.Model.RequestParams;
 
 namespace VkClient
@@ -21,14 +13,13 @@ namespace VkClient
     class SavedPhotoVm : VmBase
     {
         private long _offset = 0;
-        private List<SavedPhoto> photoList = new List<SavedPhoto>();
-        private int _currentPhotoId = 0;
         private long _userid = 17204132;
-        private BitmapImage _photo;
+        private int _currentPhotoId = 0;
         private int _likes;
         private string _date;
         private string _currentPhoto;
-
+        private List<SavedPhoto> photoList = new List<SavedPhoto>();
+        private BitmapImage _photo;
         private SolidColorBrush _color;
 
         public SolidColorBrush Color
@@ -58,7 +49,7 @@ namespace VkClient
         public long UserId
         {
             get { return _userid; }
-            set  { Set(ref _userid, value); }
+            set { Set(ref _userid, value); }
         }
 
         public BitmapImage Photo
@@ -72,6 +63,8 @@ namespace VkClient
         public ICommand NextPhoto => new CommandBase(Next);
         public ICommand LoadMore => new CommandBase(LoadMorePhotos);
         public ICommand Like => new CommandBase(SetLike);
+        public ICommand Copy => new CommandBase(CopyToSavedPhotos);
+        public ICommand CopyAll => new CommandBase(SaveAllPhotos);
 
         private void SetLike(object parameter)
         {
@@ -86,7 +79,12 @@ namespace VkClient
                 }
                 else
                 {
-                    api.Likes.Add(new LikesAddParams { ItemId = photoList[_currentPhotoId].Id, Type = LikeObjectType.Photo, OwnerId = 17204132 });
+                    api.Likes.Add(new LikesAddParams
+                    {
+                        ItemId = photoList[_currentPhotoId].Id,
+                        Type = LikeObjectType.Photo,
+                        OwnerId = _userid
+                    });
                     photoList[_currentPhotoId].Likes++;
                     photoList[_currentPhotoId].IsLiked = true;
                     GetAdditionalInfo(_currentPhotoId);
@@ -94,9 +92,9 @@ namespace VkClient
             }
             catch
             {
-                MessageBox.Show("Too many likes in short time");
+                MessageBox.Show("Calm down");
             }
-           
+
         }
 
         private void Prev(object parameter)
@@ -116,10 +114,10 @@ namespace VkClient
                 _currentPhotoId++;
                 Photo = new BitmapImage(photoList[_currentPhotoId].Link);
                 GetAdditionalInfo(_currentPhotoId);
-            }   
+            }
         }
 
-        private void Load(object parameter) // Loading saved photos 
+        private void Load(object parameter) 
         {
             if (photoList.Count != 0)
             {
@@ -144,16 +142,18 @@ namespace VkClient
                 Count = 50,
                 Reversed = true,
                 OwnerId = _userid,
-                Offset = (ulong)_offset
+                Offset = (ulong) _offset
             };
-            var collection = api.Photo.Get(details); // getting all pics
+            var collection = api.Photo.Get(details); 
             foreach (var elm in collection)
             {
+                var info = typeof(SavedPhoto).GetProperties();
+                Uri photo;
                 bool islike = elm.Likes.UserLikes;
-                photoList.Add(new SavedPhoto(elm.Photo604, Convert.ToString(elm.CreateTime), elm.Likes.Count,(long) elm.Id, islike));
+                photoList.Add(new SavedPhoto(photo=QualityControl(new [] {elm.Photo75,elm.Photo130,elm.Photo604,elm.Photo807,elm.Photo1280,elm.Photo2560}), Convert.ToString(elm.CreateTime), elm.Likes.Count, (long) elm.Id, islike));
             }
             _offset += 50; // changing offset for next loads
-            if (photoList.Count == 50)
+            if (photoList.Count <= 50)
             {
                 Photo = new BitmapImage(photoList[0].Link);
                 GetAdditionalInfo(_currentPhotoId);
@@ -164,12 +164,72 @@ namespace VkClient
             }
         }
 
+        private Uri QualityControl(Uri[] Array)
+        {
+            for (byte i = 0; i <= 5; i++)
+            {
+                if (Array[i] == null)
+                    return Array[i - 1];
+                if (Array[i] != null && i == 5)
+                    return Array[i];
+
+            }
+            throw new Exception();
+        }
+
         private void GetAdditionalInfo(int index)
         {
             Likes = photoList[index].Likes;
             Date = photoList[index].Date;
             CurrentPhoto = $"{index + 1} / {photoList.Count}";
-            Color = photoList[index].IsLiked ? new SolidColorBrush(Colors.Blue) : new SolidColorBrush(Colors.White);
+            Color = photoList[index].IsLiked
+                ? new SolidColorBrush(Colors.CornflowerBlue)
+                : new SolidColorBrush(Colors.White);
         }
-    }
+
+        private void CopyToSavedPhotos(object parameter)
+        {
+            if (_userid == api.UserId)
+            {
+                MessageBox.Show("You're trying to save your own photo");
+                return;
+            }
+            api.Photo.Copy(_userid, (ulong) photoList[_currentPhotoId].Id);
+        }
+
+        //private void SaveAllPhotos(object parameter)
+        //{
+        //   LoadAllWindow taskWindow = new LoadAllWindow(new MyDelegate(Rework));
+
+        //   taskWindow.Show();
+
+        //}
+
+        private async void SaveAllPhotos(object parameter)
+        {
+            int count = 0;
+            if (photoList.Count == 0)
+                return;
+            foreach (var x in photoList)
+            {
+                if (count%3 == 0)
+                {
+                   // value = count/photoList.Count;
+                    await Task.Delay(2000);
+                }
+                    
+                try
+                {
+                    api.Photo.Copy(_userid, (ulong)x.Id);
+                    count++;
+                }
+                catch
+                {
+                    MessageBox.Show("Too fast");
+                    return;
+                }
+            }
+            MessageBox.Show("Done");
+        }
+}
 }

@@ -16,7 +16,6 @@
                         <TextBox  Text="{Binding Login}" Width="100" BorderBrush="#FF000102" Height="20" Margin="159,0" FontFamily="Verdana" />
                         <Label Content="Password" HorizontalAlignment="Center" Foreground="#FFFDF9F9" FontFamily="Verdana"/>
                         <PasswordBox  x:Name="Password"  Width="100" BorderBrush="Black" Height="21.96" Margin="159,0"/>
-                        <Label Margin="0,10,0,0" Content="Pics quality: " HorizontalAlignment="Center" Foreground="#FFF9F5F5" FontFamily="Verdana"/>
                         <Button  Margin="0,20,0,0" Content="Enter" Width="50" IsDefault="True" Command="{Binding Auth}" CommandParameter="{Binding ElementName = Password}"  Background="#FF080707" Foreground="White"/>
                     </StackPanel>
                     <Image Source="http://www.iconsplace.com/download/white-vkcom-256.png" Margin="0,0,0,250" Height="100" Width="100" />
@@ -113,11 +112,15 @@
                                 <TextBlock  FontSize="15" Text="♥" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Button>
-                        
                     </StackPanel>
                     <TextBlock Grid.ColumnSpan="2" Grid.Row="2" Text="{Binding Date}" FontSize="15" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
                     <!--<Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Load more" Foreground="White" Background="#212428"  Click="more_click" Margin="309,12,299,0"/>-->
-                    <Button Grid.Row="2" Width="75" Grid.Column="1" Grid.ColumnSpan="2" Content="Load more" Foreground="White" Background="#212428" Command="{Binding LoadMore}"  />
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                        <Button  Width="75" Content="Load more" Foreground="White" Background="#212428" Command="{Binding LoadMore}"  />
+                        <Button  Width="75" Content="Copy" Foreground="White" Background="#212428" Command="{Binding Copy}" />
+                        <Button  Width="75" Content="Copy All" Foreground="White" Background="#212428" Command="{Binding CopyAll}" />
+                    </StackPanel>
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="Profile" Visibility="Visible">
