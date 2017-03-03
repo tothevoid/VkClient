@@ -20,6 +20,15 @@ namespace VkClient
 
         private string _login;
 
+        private Visibility _opened = Visibility.Visible;
+
+        public Visibility Opened
+        {
+            get { return _opened; }
+            set { Set(ref _opened, value); }
+        }
+
+
         public string Login
         {
             get { return _login; }
@@ -42,6 +51,7 @@ namespace VkClient
                 });
                 if (Logged != null)
                     Logged();
+                Opened = Visibility.Collapsed;
             }
             catch
             {

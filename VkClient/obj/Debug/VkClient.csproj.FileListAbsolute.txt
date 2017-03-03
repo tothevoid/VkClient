@@ -121,3 +121,4 @@ C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.Properties.Resources
 C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\VkClient.csproj.GenerateResource.Cache
 C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\LoadAllWindow.g.cs
 C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\LoadAllWindow.baml
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\GeneratedInternalTypeHelper.g.cs

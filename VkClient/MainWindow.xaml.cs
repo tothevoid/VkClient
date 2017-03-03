@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Media;
 
 
 namespace VkClient
@@ -20,12 +24,12 @@ namespace VkClient
             var FrVm = new FriendsVm();
             var LgVm = new LoginVm();
             var SfVm = new SavedPhotoVm();
-
+            
             //Connecting ViewModels to tabs
             FriendsTab.DataContext = FrVm;
             LoginTab.DataContext = LgVm;
             SavedPhotosTab.DataContext = SfVm;
-
+        
             //Loading friends after login
             LgVm.Logged += FrVm.Get_friends;
         }
@@ -83,12 +87,6 @@ namespace VkClient
                      Close();
                  if (e.Key == Key.Enter)
                      more_click(null, null);
-             }
-
-             private void Switch_user_click(object sender, RoutedEventArgs e)
-             {
-                 _offset = 0;
-                 Get_saved_photos(Convert.ToInt32(user_id.Text));
              }
 
              private void Lw_click(object sender, SelectionChangedEventArgs e)
@@ -178,6 +176,20 @@ namespace VkClient
             // TODO: Feed
             // TODO: Img cache
     }
+
+
+    //public class IntToVisibilityConverter : IValueConverter
+    //{
+    //    public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
+    //    {
+    //        return (bool)value == true ? Visibility.Visible : Visibility.Collapsed;
+    //    }
+
+    //    public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
+    //    {
+    //        throw new InvalidOperationException("Converter cannot convert back.");
+    //    }
+    //}
 
     //public class ColorsConverter : IValueConverter
     //{

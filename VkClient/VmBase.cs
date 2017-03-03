@@ -10,14 +10,14 @@ using VkNet;
 
 namespace VkClient
 {
-    class VmBase : INotifyPropertyChanged
+    abstract class VmBase : INotifyPropertyChanged
     {
         protected static readonly VkApi api = new VkApi(); // getting instance
 
         public event PropertyChangedEventHandler PropertyChanged;
         // Create the OnPropertyChanged method to raise the event
 
-        protected void Set<T>(ref T field, T value, [CallerMemberName] string propName = null)
+        protected  void Set<T>(ref T field, T value, [CallerMemberName] string propName = null)
         {
             if (field != null && !field.Equals(value) || value != null && !value.Equals(field))
             {

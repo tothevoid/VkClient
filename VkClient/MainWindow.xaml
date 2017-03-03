@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:local="clr-namespace:VkClient"
-       Title="E1337 VIEWER" Height="450" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
-     <!--Title="E1337 VIEWER" Height="600" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">-->
+       Title="E1337 VIEWER" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+    <!--Title="E1337 VIEWER" Height="450" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">-->
+
     <Grid >
-        <TabControl Margin="10"  >
-            <TabItem Header="Login" Name="LoginTab" Foreground="#FF272525">
+        <TabControl Margin="10">
+            <TabItem Header="Login" Name="LoginTab" Foreground="#FF272525" Visibility="{Binding Opened }">
                 <Grid  Background="#0f0f0f">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,90,0,0" >
                         <Label  Content="Login"  HorizontalAlignment="Center" Foreground="#FFF5F3F3" FontFamily="Verdana"/>
@@ -18,7 +19,7 @@
                         <PasswordBox  x:Name="Password"  Width="100" BorderBrush="Black" Height="21.96" Margin="159,0"/>
                         <Button  Margin="0,20,0,0" Content="Enter" Width="50" IsDefault="True" Command="{Binding Auth}" CommandParameter="{Binding ElementName = Password}"  Background="#FF080707" Foreground="White"/>
                     </StackPanel>
-                    <Image Source="http://www.iconsplace.com/download/white-vkcom-256.png" Margin="0,0,0,250" Height="100" Width="100" />
+                    <Image Source="http://www.iconsplace.com/download/white-vkcom-256.png" Margin="0,0,0,185" Height="100" Width="100" />
                 </Grid>
             </TabItem>
             <TabItem  Header="Friends" Name="FriendsTab" Visibility="Visible">
@@ -84,10 +85,13 @@
             <!--<TabItem Header="Saved" x:Name="Interface_tab" Visibility="Visible" KeyDown="keyboard_inputs"  >-->
             <TabItem Header="Saved" x:Name="SavedPhotosTab" Visibility="Visible"   >
                 <Grid>
+                    <!--<Grid.Resources>
+                        <local:ColorsConverter x:Key="ColorsConverter" />
+                    </Grid.Resources>-->
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1.2*" />
+                        <RowDefinition Height="1.1*" />
                         <RowDefinition Height="11*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="0.6*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.5*"/>
@@ -95,30 +99,34 @@
                         <ColumnDefinition Width="5*"/>
                         <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Height="20" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                        <TextBlock Text="User id:  " FontSize="15"  />
-                        <TextBox Width="70" FontSize="15" Text="{Binding UserId,Mode=TwoWay}" TextAlignment="Center" IsTabStop="False" />
-                        <Button Width="50" Content="Load" VerticalAlignment="Center" Command="{Binding LoadPhotos}"/>
+                    <Border Grid.Column="1" Grid.ColumnSpan="2" Height="45" HorizontalAlignment="Center" Margin="5" BorderBrush="Black" BorderThickness="2">
+                        <StackPanel Orientation="Horizontal"   >
+                            <TextBlock Text="ID:" FontSize="28" />
+                            <TextBox Height="31" BorderThickness="0" Width="140" TextAlignment="Center" FontSize="30" FontFamily="Vernada" Text="{Binding UserId,Mode=TwoWay}" />
+                            <!--<TextBox Height="35" BorderThickness="0" Width="140" FontSize="30" FontFamily="Vernada" Text="{Binding UserId,Mode=TwoWay}" />-->
+                        <Button BorderThickness="0" Background="White" Width="50" Height="45" VerticalAlignment="Center" Command="{Binding LoadPhotos}">
+                            <Image Source="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-128.png" />
+                            </Button>
                     </StackPanel>
+                    </Border>
                     <Button Height ="50" FontSize="30"  Grid.Column="0" Grid.RowSpan="2" Foreground="White" Background="#212428" Content="&lt;" Command="{Binding PrevPhoto}"  />
                     <Button Height ="50" FontSize="30"  Grid.Column="3" Grid.RowSpan="2" Foreground="White" Background="#212428" Content=">" Command="{Binding NextPhoto}"  />
                     <Image Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Source="{Binding Photo}"  Margin="15,15,15,10"/>
                     <StackPanel Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
-                        <!--<Button Click="Liked">-->
-                        <TextBlock FontSize="15" Width="60" FontFamily="Haettenschweiler" Text="{Binding CurrentPhoto}"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBlock FontSize="20" Width="60" FontFamily="Haettenschweiler" Text="{Binding CurrentPhoto}"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
                         <Button Width="50" Background="{Binding Color}" Command="{Binding Like}">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Likes}"  FontSize="15" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
-                                <TextBlock  FontSize="15" Text="♥" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding Likes}"  FontSize="20" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
+                                <TextBlock  FontSize="20" Text="♥" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>
-                    <TextBlock Grid.ColumnSpan="2" Grid.Row="2" Text="{Binding Date}" FontSize="15" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
+                    <TextBlock Grid.ColumnSpan="2" Grid.Row="2" Text="{Binding Date}" FontSize="20" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
                     <!--<Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Load more" Foreground="White" Background="#212428"  Click="more_click" Margin="309,12,299,0"/>-->
                     <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                         <Button  Width="75" Content="Load more" Foreground="White" Background="#212428" Command="{Binding LoadMore}"  />
-                        <Button  Width="75" Content="Copy" Foreground="White" Background="#212428" Command="{Binding Copy}" />
-                        <Button  Width="75" Content="Copy All" Foreground="White" Background="#212428" Command="{Binding CopyAll}" />
+                        <Button  Width="75" Content="Save" Foreground="White" Background="#212428" Command="{Binding Copy}" />
+                        <Button  Width="75" Content="Save All" Foreground="White" Background="#212428" Command="{Binding CopyAll}" />
                     </StackPanel>
                     
                 </Grid>

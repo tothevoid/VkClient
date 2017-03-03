@@ -135,10 +135,10 @@ namespace VkClient
 
         private void GetSavedPhotos()
         {
-            var details = new VkNet.Model.RequestParams.PhotoGetParams
+            var details = new PhotoGetParams
             {
                 Extended = true,
-                AlbumId = VkNet.Enums.SafetyEnums.PhotoAlbumType.Saved,
+                AlbumId = PhotoAlbumType.Saved,
                 Count = 50,
                 Reversed = true,
                 OwnerId = _userid,
@@ -146,11 +146,9 @@ namespace VkClient
             };
             var collection = api.Photo.Get(details); 
             foreach (var elm in collection)
-            {
-                var info = typeof(SavedPhoto).GetProperties();
-                Uri photo;
+            { 
                 bool islike = elm.Likes.UserLikes;
-                photoList.Add(new SavedPhoto(photo=QualityControl(new [] {elm.Photo75,elm.Photo130,elm.Photo604,elm.Photo807,elm.Photo1280,elm.Photo2560}), Convert.ToString(elm.CreateTime), elm.Likes.Count, (long) elm.Id, islike));
+                photoList.Add(new SavedPhoto(QualityControl(new [] {elm.Photo75,elm.Photo130,elm.Photo604,elm.Photo807,elm.Photo1280,elm.Photo2560}), Convert.ToString(elm.CreateTime), elm.Likes.Count, (long) elm.Id, islike));
             }
             _offset += 50; // changing offset for next loads
             if (photoList.Count <= 50)
@@ -196,14 +194,6 @@ namespace VkClient
             }
             api.Photo.Copy(_userid, (ulong) photoList[_currentPhotoId].Id);
         }
-
-        //private void SaveAllPhotos(object parameter)
-        //{
-        //   LoadAllWindow taskWindow = new LoadAllWindow(new MyDelegate(Rework));
-
-        //   taskWindow.Show();
-
-        //}
 
         private async void SaveAllPhotos(object parameter)
         {
