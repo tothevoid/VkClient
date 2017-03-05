@@ -12,7 +12,7 @@ namespace VkClient
 {
     abstract class VmBase : INotifyPropertyChanged
     {
-        protected static readonly VkApi api = new VkApi(); // getting instance
+        protected static readonly VkApi api = new VkApi();
 
         public event PropertyChangedEventHandler PropertyChanged;
         // Create the OnPropertyChanged method to raise the event

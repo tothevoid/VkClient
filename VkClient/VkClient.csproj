@@ -76,6 +76,7 @@
       <DependentUpon>LoadAllWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SavedPhotoVm.cs" />
+    <Compile Include="StringHelper.cs" />
     <Compile Include="VmBase.cs" />
     <Page Include="LoadAllWindow.xaml">
       <SubType>Designer</SubType>
@@ -124,6 +125,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="picture.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

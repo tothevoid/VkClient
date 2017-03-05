@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:local="clr-namespace:VkClient"
-       Title="E1337 VIEWER" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
+       Icon="picture.ico" Title="SavedPhotosViewer" Height="768" Width="1024" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" >
     <!--Title="E1337 VIEWER" Height="450" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">-->
 
     <Grid >
@@ -22,7 +22,7 @@
                     <Image Source="http://www.iconsplace.com/download/white-vkcom-256.png" Margin="0,0,0,185" Height="100" Width="100" />
                 </Grid>
             </TabItem>
-            <TabItem  Header="Friends" Name="FriendsTab" Visibility="Visible">
+            <TabItem  Header="Friends" Name="FriendsTab" Visibility="Collapsed">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2.5*"/>
@@ -102,18 +102,15 @@
                     <Border Grid.Column="1" Grid.ColumnSpan="2" Height="45" HorizontalAlignment="Center" Margin="5" BorderBrush="Black" BorderThickness="2">
                         <StackPanel Orientation="Horizontal"   >
                             <TextBlock Text="ID:" FontSize="28" />
-                            <TextBox Height="31" BorderThickness="0" Width="140" TextAlignment="Center" FontSize="30" FontFamily="Vernada" Text="{Binding UserId,Mode=TwoWay}" />
+                            <TextBox Height="31" BorderThickness="0" Width="140" TextAlignment="Center" FontSize="30" FontFamily="Vernada" Text="{Binding UserId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
                             <!--<TextBox Height="35" BorderThickness="0" Width="140" FontSize="30" FontFamily="Vernada" Text="{Binding UserId,Mode=TwoWay}" />-->
-                        <Button BorderThickness="0" Background="White" Width="50" Height="45" VerticalAlignment="Center" Command="{Binding LoadPhotos}">
-                            <Image Source="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-128.png" />
+                            <Button BorderThickness="0" Background="White" Width="50" Height="45" VerticalAlignment="Center" Command="{Binding LoadPhotos}">
+                                <Image Source="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-128.png" />
                             </Button>
-                    </StackPanel>
+                        </StackPanel>
                     </Border>
-                    <Button Height ="50" FontSize="30"  Grid.Column="0" Grid.RowSpan="2" Foreground="White" Background="#212428" Content="&lt;" Command="{Binding PrevPhoto}"  />
-                    <Button Height ="50" FontSize="30"  Grid.Column="3" Grid.RowSpan="2" Foreground="White" Background="#212428" Content=">" Command="{Binding NextPhoto}"  />
                     <Image Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Source="{Binding Photo}"  Margin="15,15,15,10"/>
                     <StackPanel Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
-                        <TextBlock FontSize="20" Width="60" FontFamily="Haettenschweiler" Text="{Binding CurrentPhoto}"  HorizontalAlignment="Right" VerticalAlignment="Center"/>
                         <Button Width="50" Background="{Binding Color}" Command="{Binding Like}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Likes}"  FontSize="20" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
@@ -121,17 +118,21 @@
                             </StackPanel>
                         </Button>
                     </StackPanel>
+                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" FontSize="20" Width="60" FontFamily="Haettenschweiler" Text="{Binding CurrentPhoto}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Grid.ColumnSpan="2" Grid.Row="2" Text="{Binding Date}" FontSize="20" FontFamily="Haettenschweiler" VerticalAlignment="Center"/>
-                    <!--<Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Content="Load more" Foreground="White" Background="#212428"  Click="more_click" Margin="309,12,299,0"/>-->
-                    <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                        <Button  Width="75" Content="Load more" Foreground="White" Background="#212428" Command="{Binding LoadMore}"  />
-                        <Button  Width="75" Content="Save" Foreground="White" Background="#212428" Command="{Binding Copy}" />
-                        <Button  Width="75" Content="Save All" Foreground="White" Background="#212428" Command="{Binding CopyAll}" />
-                    </StackPanel>
-                    
+                    <Expander   Header="Actions:" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="70" HorizontalAlignment="Left">
+                        <StackPanel>
+                            <Button  BorderThickness="2" BorderBrush="Black" Height="50" FontFamily="Vernada" Content="Load &#10;more" Foreground="#212428" Background="White" Command="{Binding LoadMore}"  />
+                            <Button BorderThickness="2" BorderBrush="Black" Height="50"  Content="Save" Foreground="#212428" Background="White" Command="{Binding Copy}" />
+                            <Button BorderThickness="2" BorderBrush="Black" Height="50"  Content="Save All" Foreground="#212428" Background="White" Command="{Binding CopyAll}" />
+                            <ComboBox ItemsSource="{Binding ListOfIDs}" SelectedIndex="{Binding CbID}"/>
+                        </StackPanel>
+                    </Expander>
+                    <Button Height ="50" FontSize="30" BorderThickness="3" BorderBrush="Black" Grid.Column="0" Grid.Row="1" Foreground="#212428" Background="White" Content="&lt;" Command="{Binding PrevPhoto}"  />
+                    <Button Height ="50" FontSize="30" BorderThickness="3" BorderBrush="Black"  Grid.Column="3" Grid.Row="1"  Foreground="#212428" Background="White" Content=">" Command="{Binding NextPhoto}"  />
                 </Grid>
             </TabItem>
-            <TabItem Header="Profile" Visibility="Visible">
+            <TabItem Header="Profile" Visibility="Collapsed">
                 <Grid >
                     <Grid.RowDefinitions>
                         <!--<RowDefinition Height="20" />-->
@@ -178,7 +179,7 @@
                     </Border>
                 </Grid>
             </TabItem>
-            <TabItem Header="Photos" Visibility="Visible">
+            <TabItem Header="Photos" Visibility="Collapsed">
                 <Grid>
                     <Image x:Name="Fr_img" Margin="20,20" Height="300" DockPanel.Dock="Top" />
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" HorizontalAlignment="Center">

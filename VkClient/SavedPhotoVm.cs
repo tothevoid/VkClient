@@ -1,17 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using VkNet.Enums.SafetyEnums;
+using VkNet.Model.Attachments;
 using VkNet.Model.RequestParams;
+using VkNet.Utils;
 
 namespace VkClient
 {
     class SavedPhotoVm : VmBase
     {
+        // TODO: Keyboard inputs
+        // TODO: New buttons
+        // TODO: Visibility
+        // TODO: History
+        // TODO: Your own saved photos
+        // TODO: Exceptions
+
+        public SavedPhotoVm()
+        {
+            GetIDs();
+        }
+        
         private long _offset = 0;
         private long _userid = 17204132;
         private int _currentPhotoId = 0;
@@ -21,11 +37,26 @@ namespace VkClient
         private List<SavedPhoto> photoList = new List<SavedPhoto>();
         private BitmapImage _photo;
         private SolidColorBrush _color;
+        private int _cbId = 0;
+
+        public ObservableCollection<string>ListOfIDs { get; set; } = new ObservableCollection<string>();  
 
         public SolidColorBrush Color
         {
             get { return _color; }
             set { Set(ref _color, value); }
+        }
+
+         public int CbID
+        {
+             get { return _cbId; }
+             set
+             {
+                 UserId = Convert.ToInt64(ListOfIDs[_cbId]);
+                Load(null);
+                Set(ref _cbId, value);
+
+             }
         }
 
         public string CurrentPhoto
@@ -65,6 +96,15 @@ namespace VkClient
         public ICommand Like => new CommandBase(SetLike);
         public ICommand Copy => new CommandBase(CopyToSavedPhotos);
         public ICommand CopyAll => new CommandBase(SaveAllPhotos);
+
+        private void GetIDs()
+        {
+            var IDs = System.IO.File.ReadAllLines("IDs.txt");
+            foreach (var x in IDs)
+            {
+                ListOfIDs.Add(x);
+            }
+        }
 
         private void SetLike(object parameter)
         {
@@ -144,7 +184,25 @@ namespace VkClient
                 OwnerId = _userid,
                 Offset = (ulong) _offset
             };
-            var collection = api.Photo.Get(details); 
+            VkCollection<Photo> collection;
+            try
+            {
+               collection = api.Photo.Get(details);
+                if (ListOfIDs.Contains(_userid.ToString()) == false)
+                {
+                    ListOfIDs.Add(_userid.ToString());
+                    System.IO.File.AppendAllText("IDs.txt", _userid.ToString()+Environment.NewLine);
+                }
+                  
+
+            }
+            catch(Exception exception)
+            {
+                
+                MessageBox.Show(exception.Message,"Loading error");
+                return;
+            }
+            
             foreach (var elm in collection)
             { 
                 bool islike = elm.Likes.UserLikes;
@@ -197,7 +255,10 @@ namespace VkClient
 
         private async void SaveAllPhotos(object parameter)
         {
-            int count = 0;
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Save'em all", MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.No)
+                return;
+                int count = 0;
             if (photoList.Count == 0)
                 return;
             foreach (var x in photoList)
