@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\ivang\Desktop\VkClient\VkClient\obj\Debug\
+C:\Users\ivang\Desktop\VkClient\VkClient\obj\Release\
 VkClient
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\ivang\Desktop\VkClient\VkClient\App.xaml
 3-1471020334
 
-19-216023450
+151240277533
 17-1813860274
 CustomMessageBox.xaml;LoadAllWindow.xaml;MainWindow.xaml;
 
-False
+True
 

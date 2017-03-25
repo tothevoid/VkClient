@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,7 +12,7 @@ namespace VkClient
     {
         public ObservableCollection<Friend> Friends { get; set; } = new ObservableCollection<Friend>();
 
-        private  int _totalFriends;
+        private int _totalFriends;
         private int _onlineFriends;
 
         public ICommand Reload => new CommandBase(Update);
@@ -26,8 +21,8 @@ namespace VkClient
         {
             Friends.Clear();
             Get_friends();
-        } 
-        
+        }
+
         public int TotalFriends
         {
             get { return _totalFriends; }
@@ -41,7 +36,7 @@ namespace VkClient
         }
 
         public void Get_friends() // Getting friend list
-        {
+        { 
             int Count=0;
             var query = new FriendsGetParams { UserId = api.UserId, Fields = ProfileFields.All }; // Getting needed fields  
             var users = api.Friends.Get(query).OrderByDescending(x => x.Online); // Friends sort

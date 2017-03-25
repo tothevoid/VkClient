@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using VkNet.Enums.SafetyEnums;
+using VkNet.Exception;
 using VkNet.Model.Attachments;
 using VkNet.Model.RequestParams;
 using VkNet.Utils;
@@ -16,30 +17,34 @@ namespace VkClient
 {
     class SavedPhotoVm : VmBase
     {
-        // TODO: Keyboard inputs
-        // TODO: New buttons
-        // TODO: Visibility
-        // TODO: History
-        // TODO: Your own saved photos
-        // TODO: Exceptions
+        // TODO: Visibility + focus
+        // TODO: History 
+        // UPDATE: ID field
 
         public SavedPhotoVm()
         {
             GetIDs();
         }
-        
+
         private long _offset = 0;
         private long _userid = 17204132;
         private int _currentPhotoId = 0;
+        private int _cbId = -1;
         private int _likes;
         private string _date;
         private string _currentPhoto;
         private List<SavedPhoto> photoList = new List<SavedPhoto>();
         private BitmapImage _photo;
         private SolidColorBrush _color;
-        private int _cbId = 0;
+        private Visibility _opened = Visibility.Collapsed;
 
-        public ObservableCollection<string>ListOfIDs { get; set; } = new ObservableCollection<string>();  
+        public ObservableCollection<string> ListOfIDs { get; set; } = new ObservableCollection<string>();
+        
+        public Visibility Opened
+        {
+            get { return _opened; }
+            set { Set(ref _opened, value); }
+        }
 
         public SolidColorBrush Color
         {
@@ -47,16 +52,15 @@ namespace VkClient
             set { Set(ref _color, value); }
         }
 
-         public int CbID
+        public int CbID
         {
-             get { return _cbId; }
-             set
-             {
-                 UserId = Convert.ToInt64(ListOfIDs[_cbId]);
-                Load(null);
+            get { return _cbId; }
+            set
+            {
                 Set(ref _cbId, value);
-
-             }
+                UserId = Convert.ToInt64(ListOfIDs[_cbId]);
+                Load(null);
+            }
         }
 
         public string CurrentPhoto
@@ -96,6 +100,13 @@ namespace VkClient
         public ICommand Like => new CommandBase(SetLike);
         public ICommand Copy => new CommandBase(CopyToSavedPhotos);
         public ICommand CopyAll => new CommandBase(SaveAllPhotos);
+        public ICommand MyProfile => new CommandBase(LoadMyProfile);
+
+
+        public void SwitchVisibility()
+        {
+            Opened = Visibility.Visible;
+        }
 
         private void GetIDs()
         {
@@ -132,12 +143,12 @@ namespace VkClient
             }
             catch
             {
-                MessageBox.Show("Calm down");
+                CustomMessageBox.Show( "Likes exception","Too many likes per minute");
             }
 
         }
 
-        private void Prev(object parameter)
+        public void Prev(object parameter)
         {
             if (_currentPhotoId - 1 >= 0)
             {
@@ -147,7 +158,7 @@ namespace VkClient
             }
         }
 
-        private void Next(object parameter)
+        public void Next(object parameter)
         {
             if (_currentPhotoId + 1 < photoList.Count)
             {
@@ -157,7 +168,7 @@ namespace VkClient
             }
         }
 
-        private void Load(object parameter) 
+        private void Load(object parameter)
         {
             if (photoList.Count != 0)
             {
@@ -181,34 +192,38 @@ namespace VkClient
                 AlbumId = PhotoAlbumType.Saved,
                 Count = 50,
                 Reversed = true,
-                OwnerId = _userid,
-                Offset = (ulong) _offset
+                OwnerId = UserId,
+                Offset = (ulong)_offset
             };
             VkCollection<Photo> collection;
             try
             {
-               collection = api.Photo.Get(details);
-                if (ListOfIDs.Contains(_userid.ToString()) == false)
+                collection = api.Photo.Get(details);
+                if (ListOfIDs.Contains(UserId.ToString()) == false)
                 {
-                    ListOfIDs.Add(_userid.ToString());
-                    System.IO.File.AppendAllText("IDs.txt", _userid.ToString()+Environment.NewLine);
+                    ListOfIDs.Add(UserId.ToString());
+                    System.IO.File.AppendAllText("IDs.txt", _userid + Environment.NewLine);
                 }
-                  
-
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
-                
-                MessageBox.Show(exception.Message,"Loading error");
+                CustomMessageBox.Show("Loading error",exception.Message);
                 return;
             }
-            
             foreach (var elm in collection)
-            { 
+            {
                 bool islike = elm.Likes.UserLikes;
-                photoList.Add(new SavedPhoto(QualityControl(new [] {elm.Photo75,elm.Photo130,elm.Photo604,elm.Photo807,elm.Photo1280,elm.Photo2560}), Convert.ToString(elm.CreateTime), elm.Likes.Count, (long) elm.Id, islike));
+                photoList.Add(new SavedPhoto(QualityControl(new[] { elm.Photo75, elm.Photo130, elm.Photo604, elm.Photo807, elm.Photo1280, elm.Photo2560 }), Convert.ToString(elm.CreateTime), elm.Likes.Count, (long)elm.Id, islike));
             }
+
+            if (photoList.Count == 0)
+            {
+                CustomMessageBox.Show("Load exception", "This account has no saved photos");
+                return;
+            }
+
             _offset += 50; // changing offset for next loads
+
             if (photoList.Count <= 50)
             {
                 Photo = new BitmapImage(photoList[0].Link);
@@ -228,7 +243,6 @@ namespace VkClient
                     return Array[i - 1];
                 if (Array[i] != null && i == 5)
                     return Array[i];
-
             }
             throw new Exception();
         }
@@ -245,12 +259,12 @@ namespace VkClient
 
         private void CopyToSavedPhotos(object parameter)
         {
-            if (_userid == api.UserId)
+            if (UserId == api.UserId)
             {
-                MessageBox.Show("You're trying to save your own photo");
+                CustomMessageBox.Show("Load error","You're trying to save your own photo");
                 return;
             }
-            api.Photo.Copy(_userid, (ulong) photoList[_currentPhotoId].Id);
+            api.Photo.Copy(UserId, (ulong)photoList[_currentPhotoId].Id);
         }
 
         private async void SaveAllPhotos(object parameter)
@@ -258,20 +272,19 @@ namespace VkClient
             MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Save'em all", MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.No)
                 return;
-                int count = 0;
+            int count = 0;
             if (photoList.Count == 0)
                 return;
             foreach (var x in photoList)
             {
-                if (count%3 == 0)
+                if (count % 3 == 0)
                 {
-                   // value = count/photoList.Count;
+                    // value = count/photoList.Count;
                     await Task.Delay(2000);
                 }
-                    
                 try
                 {
-                    api.Photo.Copy(_userid, (ulong)x.Id);
+                    api.Photo.Copy(UserId, (ulong)x.Id);
                     count++;
                 }
                 catch
@@ -281,6 +294,23 @@ namespace VkClient
                 }
             }
             MessageBox.Show("Done");
+        }
+
+        public void Update()
+        {
+            Photo = new BitmapImage(photoList[_currentPhotoId].Link);
+        }
+
+        public void LoadMyProfile(object parameter)
+        {
+            if (api.UserId == null)
+            {
+                CustomMessageBox.Show("Action exception","You're not logged in");
+                return;
+            }
+            var profile = api.Friends.Get(new FriendsGetParams { UserId=api.UserId, Count=100,Fields=VkNet.Enums.Filters.ProfileFields.All});
+            UserId = (long) api.UserId;
+            Load(null);
         }
 }
 }

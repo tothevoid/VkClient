@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -22,10 +23,7 @@ namespace VkClient
             if (field != null && !field.Equals(value) || value != null && !value.Equals(field))
             {
                 field = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(propName));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
             }
         }
     }
@@ -35,7 +33,6 @@ namespace VkClient
         public event EventHandler CanExecuteChanged;
         private readonly Action<object> action;
 
-
         public CommandBase(Action<object> action)
         {
             this.action = action;
@@ -43,7 +40,8 @@ namespace VkClient
 
         public bool CanExecute(object parameter)
         {
-            return true;
+                return true;
+          
         }
 
         public void Execute(object parameter)
@@ -51,4 +49,8 @@ namespace VkClient
             action(parameter);
         }
     }
+
+    
+
+
 }

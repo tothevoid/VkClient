@@ -3,35 +3,48 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-
+using System.Windows.Input;
+using System.Collections.Generic;
 
 namespace VkClient
 {
     public partial class MainWindow : Window
     {
-        // int avatar_index = 0;
-        // long friend_id;
+
+        public static Window MainWindowInstance;
+
 
         /*
-        List<Uri> avatars = new List<Uri>();
+         int avatar_index = 0;
+         long friend_id;
+         List<Uri> avatars = new List<Uri>();
        */
+        
+        //Getting instances of ViewModels
+        FriendsVm FrVm = new FriendsVm();
+        LoginVm LgVm = new LoginVm();
+        SavedPhotoVm SfVm = new SavedPhotoVm();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            //Getting instances of ViewModels
-            var FrVm = new FriendsVm();
-            var LgVm = new LoginVm();
-            var SfVm = new SavedPhotoVm();
-            
+            MainWindowInstance = this;
+
             //Connecting ViewModels to tabs
             FriendsTab.DataContext = FrVm;
             LoginTab.DataContext = LgVm;
             SavedPhotosTab.DataContext = SfVm;
-        
+
             //Loading friends after login
             LgVm.Logged += FrVm.Get_friends;
+            LgVm.Logged += SfVm.SwitchVisibility;
+            LgVm.Logged += Focus;
+        }
+
+        private void Focus()
+        {
+            SavedPhotosTab.Focus();
         }
 
         private void Start_click(object sender, RoutedEventArgs e)
@@ -74,21 +87,19 @@ namespace VkClient
              */
         }
 
+        private void KeyPushed(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Left)
+                SfVm.Prev(null);
+            else if (e.Key == Key.Right)
+                SfVm.Next(null);
+            else if (e.Key == Key.F5)
+                SfVm.Update();
+        }
+
+        
 
         /*
-           
-             private void keyboard_inputs(object sender, KeyEventArgs e)  // keyboard inputs
-             {
-                 if (e.Key == Key.Left)
-                     Check(false);
-                 if (e.Key == Key.Right)
-                     Check(true);
-                 if (e.Key == Key.Escape)
-                     Close();
-                 if (e.Key == Key.Enter)
-                     more_click(null, null);
-             }
-
              private void Lw_click(object sender, SelectionChangedEventArgs e)
              {
                  var LV = sender as ListView;
@@ -168,13 +179,13 @@ namespace VkClient
              }
              */
 
-            // TODO: Album save
-            // TODO: Img cache
-            // TODO: Groups 
-            // TODO: Messages
-            // TODO: Video
-            // TODO: Feed
-            // TODO: Img cache
+        // TODO: Album save
+        // TODO: Img cache
+        // TODO: Groups 
+        // TODO: Messages
+        // TODO: Video
+        // TODO: Feed
+        // TODO: Img cache
     }
 
 

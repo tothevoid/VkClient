@@ -11,7 +11,6 @@ using VkNet.Enums.Filters;
 
 namespace VkClient
 {
-
     class LoginVm : VmBase
     {
         public delegate void GetFriends();
@@ -28,7 +27,6 @@ namespace VkClient
             set { Set(ref _opened, value); }
         }
 
-
         public string Login
         {
             get { return _login; }
@@ -40,27 +38,29 @@ namespace VkClient
         private void TryToAuth(object parameter)
         {
             var passbox = parameter as PasswordBox;
+            if (Login == null || passbox.Password == null)
+            {
+                CustomMessageBox.Show("Login error", "One of field is empty");
+                return;
+            }
             try
             {
-                api.Authorize(new ApiAuthParams //trying to auth
+                api.Authorize(new ApiAuthParams // trying to auth
                 {
                     ApplicationId = 5865343,
                     Login = Login,
                     Password = passbox.Password,
                     Settings = Settings.All,
                 });
-                if (Logged != null)
-                    Logged();
+                api.Stats.TrackVisitor(); 
+                Logged?.Invoke();
                 Opened = Visibility.Collapsed;
             }
-            catch
+            catch  
             {
-                MessageBox.Show("Try again", "Login exeption"); //got exeption => notifying user
+               CustomMessageBox.Show("Login error",""); //got exeption => notifying users
+            
             }
         }
-
-
-
-
     }
 }
