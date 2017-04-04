@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
+using System.Windows;
+using System.Windows.Controls;
 
 namespace VkClient
 {
@@ -26,12 +27,12 @@ namespace VkClient
     class SavedPhoto
     {
         public Uri Link {get;set;}
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public int Likes { get; set; }
         public long Id { get; set; }
         public bool IsLiked { get; set; }
 
-        public SavedPhoto(Uri link,string date,int likes,long id,bool il)
+        public SavedPhoto(Uri link, DateTime date,int likes,long id,bool il)
         {
             Link = link;
             Date = date;
@@ -44,17 +45,32 @@ namespace VkClient
 
     class Message
     {
-        public string Recieved_msg { get; set; }
-        public BitmapImage Recieved_img { get; set; }
-        public string Sent_msg { get; set; }
-        public BitmapImage Sent_img { get; set; }
+        public string Text { get; set; }
+        public BitmapImage Image { get; set; }
+     //   public int Column { get; set; }
+        public  HorizontalAlignment Alignment {get;set;}
+        public Dock Dock { get; set; }
 
-        public Message(string rm,BitmapImage ri, string sm,BitmapImage si)
+        public Message(string msg, BitmapImage photo, VkNet.Enums.MessageType? type)
         {
-            Recieved_msg = rm;
-            Recieved_img = ri;
-            Sent_msg = sm;
-            Sent_img = si;
+            
+            if (type == null)
+                throw new NullReferenceException();
+            Text = msg;
+            Image = photo;
+            //if (type == VkNet.Enums.MessageType.Received)
+            //    Alignment = HorizontalAlignment.Left;
+            //else
+            //    Alignment = HorizontalAlignment.Right; 
+
+            if (type == VkNet.Enums.MessageType.Received)
+                Dock = Dock.Left;
+            else
+                Dock = Dock.Right;
+            
+            
+            //Column = (int) type.Value;
         }
-}
+    }
+
 }

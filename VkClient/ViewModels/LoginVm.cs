@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -37,6 +34,12 @@ namespace VkClient
 
         private void TryToAuth(object parameter)
         {
+            bool result = CheckConnection("http://vk.com/");
+            if (result == false)
+            {
+                CustomMessageBox.Show("Connection error", "You are currently offline");
+                return;
+            }
             var passbox = parameter as PasswordBox;
             if (Login == null || passbox.Password == null)
             {
@@ -54,13 +57,40 @@ namespace VkClient
                 });
                 api.Stats.TrackVisitor(); 
                 Logged?.Invoke();
+                api.Account.SetOffline();
                 Opened = Visibility.Collapsed;
+           
             }
             catch  
             {
-               CustomMessageBox.Show("Login error",""); //got exeption => notifying users
+               CustomMessageBox.Show("Login error","Invalid login or password"); //got exeption => notifying users
             
             }
         }
+
+      
+
+        private bool CheckConnection(String URL)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.Timeout = 5000;
+                request.Credentials = CredentialCache.DefaultNetworkCredentials;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                   return true;
+                else
+                   return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
+
+    
 }

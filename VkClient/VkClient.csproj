@@ -74,19 +74,10 @@
     <Compile Include="CustomMessageBox.xaml.cs">
       <DependentUpon>CustomMessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MyMessageBox.cs" />
-    <Compile Include="LoadAllVm.cs" />
-    <Compile Include="LoadAllWindow.xaml.cs">
-      <DependentUpon>LoadAllWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SavedPhotoVm.cs" />
-    <Compile Include="StringHelper.cs" />
-    <Compile Include="VmBase.cs" />
+    <Compile Include="ViewModels\LoadAllVm.cs" />
+    <Compile Include="ViewModels\SavedPhotoVm.cs" />
+    <Compile Include="ViewModels\VmBase.cs" />
     <Page Include="CustomMessageBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LoadAllWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,8 +90,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BaseClasses.cs" />
-    <Compile Include="FriendsVm.cs" />
-    <Compile Include="LoginVm.cs" />
+    <Compile Include="ViewModels\FriendsVm.cs" />
+    <Compile Include="ViewModels\LoginVm.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -135,23 +126,23 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\picture.ico" />
+    <Resource Include="Images\picture.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\multisave.ico" />
-    <Resource Include="images\save.ico" />
+    <Resource Include="Images\multisave.ico" />
+    <Resource Include="Images\save.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\loadmore.png" />
+    <Resource Include="Images\loadmore.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\avatar.png" />
+    <Resource Include="Images\avatar.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\logo.png" />
+    <Resource Include="Images\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\VK.png" />
+    <Resource Include="Images\VK.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

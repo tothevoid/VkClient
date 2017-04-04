@@ -10,16 +10,8 @@ namespace VkClient
 {
     public partial class MainWindow : Window
     {
+        private static Window MainWindowInstance;
 
-        public static Window MainWindowInstance;
-
-
-        /*
-         int avatar_index = 0;
-         long friend_id;
-         List<Uri> avatars = new List<Uri>();
-       */
-        
         //Getting instances of ViewModels
         FriendsVm FrVm = new FriendsVm();
         LoginVm LgVm = new LoginVm();
@@ -39,52 +31,17 @@ namespace VkClient
             //Loading friends after login
             LgVm.Logged += FrVm.Get_friends;
             LgVm.Logged += SfVm.SwitchVisibility;
-            LgVm.Logged += Focus;
+            LgVm.Logged += GetFocus;
         }
 
-        private void Focus()
+        private void GetFocus()
         {
             SavedPhotosTab.Focus();
         }
 
-        private void Start_click(object sender, RoutedEventArgs e)
+        public static void SetOwned(ref Window Owned)
         {
-            /* MESSAGE IMPLEMENTION
-            //UNODNE  message loading implemention
-            var a =
-                api.Messages.Get(new MessagesGetParams
-                {
-                    Count = 200,
-                    Filters = MessagesFilter.All,
-                    PreviewLength = 0,
-                    Out = MessageType.Received
-                });
-            var b =
-                api.Messages.Get(new MessagesGetParams
-                {
-                    Count = 200,
-                    Filters = MessagesFilter.All,
-                    PreviewLength = 0,
-                    Out = MessageType.Sended
-                });
-            //var b = api.Messages.GetDialogs(new MessagesDialogsGetParams {Count = 200, PreviewLength = 0});
-            List<Message> objs = new List<Message>();
-            foreach (var x in a.Messages)
-            {
-                string f1 = x.Body;
-                BitmapImage f2;
-                if (x.Attachments.Count == 0)
-                    continue;
-                if (x.Attachments[0].Type.Name != "Photo")
-                    continue;
-                var c = x.Attachments[0].Instance as VkNet.Model.Attachments.Photo;
-                f2 = new BitmapImage(c.Photo604);
-                var ef = new Message(f1, f2, null, null);
-                objs.Add(ef);
-            }
-            //  Chat.ItemsSource = objs;
-             string txt = Clipboard.GetText();
-             */
+            Owned.Owner = MainWindowInstance;
         }
 
         private void KeyPushed(object sender, KeyEventArgs e)
@@ -97,131 +54,7 @@ namespace VkClient
                 SfVm.Update();
         }
 
-        
 
-        /*
-             private void Lw_click(object sender, SelectionChangedEventArgs e)
-             {
-                 var LV = sender as ListView;
-                 var Fr = LV.SelectedItem as Friend;
-                 friend_id = Fr.Id;
-                 Got_avatars();
-             }
-
-             private void Got_avatars() 
-             {
-                 avatar_index = 0;
-                 avatars.Clear();
-                 var details = new VkNet.Model.RequestParams.PhotoGetParams { Extended = true, AlbumId = VkNet.Enums.SafetyEnums.PhotoAlbumType.Profile, Count = 50, Reversed = true, OwnerId = friend_id, Offset = _offset };
-                 Load_profile(friend_id);
-                 var collection = api.Photo.Get(details); // TODO: Fix exeption with opening of deleted profile
-                 foreach (var x in collection)
-                     avatars.Add(x.Photo604);
-                 if (avatars.Count != 0)
-                     Fr_img.Source = new BitmapImage(avatars[0]);
-             }
-
-
-
-             private void Next_click(object sender, RoutedEventArgs e) //next avatar button event
-             {
-                 var determine = sender as Button;
-                 if (Fr_img.Source == null || avatars.Count == 0)  
-                     return;
-                 switch (determine.Content.ToString())
-                 {
-                     case ("Prev"):
-                         if (avatar_index - 1 <0)
-                             return;
-                         avatar_index--;
-                         Fr_img.Source = new BitmapImage(avatars[avatar_index]);
-                         break;
-                     case ("Next"):
-                         if (avatar_index + 1 > avatars.Count - 1)
-                             return;
-                         avatar_index++;
-                         Fr_img.Source = new BitmapImage(avatars[avatar_index]);
-                         break;
-                 }
-             }
-
-             private void Load_profile(long Id) // UNDONE: profiles
-             {
-                 var profile = api.Users.Get(Id, ProfileFields.All);
-                 User_avatar.Source = new BitmapImage(profile.Photo400Orig);
-                 User_status.Text = profile.Status;
-                 var Date = profile.BirthDate.Split('.'); // UNDONE: NO DATE
-                 if (Date.Length == 3) // UNDONE: DD/MM date and DD/MM/YYYY date 
-                 {
-                     DateTime date = new DateTime(Convert.ToInt32(Date[2]), Convert.ToInt32(Date[1]), Convert.ToInt32(Date[0]));
-                     User_birthday.Text = "Birthday:   "+date.ToString("D");
-                 }
-                 try
-                 {
-                     User_city.Text = "Current city:   "+profile.City.Title;
-                 }
-                 catch
-                 {
-                     User_city.Text = "Hidden";
-                 }
-                 User_name.Text = (profile.FirstName +" "+ profile.LastName);
-                 Groups_count.Text = profile.Counters.Groups.ToString();
-                 Photos_count.Text = profile.Counters.Photos.ToString();
-                 Audios_count.Text = profile.Counters.Audios.ToString();
-                 Videos_count.Text = profile.Counters.Videos.ToString();
-                 User_online.Text = profile.Online==true ? "Online" : profile.LastSeen.Time.Value.ToString();
-             }
-
-             private void Search_query_changed(object sender, TextChangedEventArgs e)
-             {
-                 string curr_search = Search_query.Text;
-                 Friends.ItemsSource = my_friends.Where(x => x.FirstName.ToLower().Contains(curr_search.ToLower()) || x.LastName.ToLower().Contains(curr_search.ToLower()));
-             }
-             */
-
-        // TODO: Album save
-        // TODO: Img cache
-        // TODO: Groups 
-        // TODO: Messages
-        // TODO: Video
-        // TODO: Feed
-        // TODO: Img cache
     }
 
-
-    //public class IntToVisibilityConverter : IValueConverter
-    //{
-    //    public Object Convert(Object value, Type targetType, Object parameter, CultureInfo culture)
-    //    {
-    //        return (bool)value == true ? Visibility.Visible : Visibility.Collapsed;
-    //    }
-
-    //    public Object ConvertBack(Object value, Type targetType, Object parameter, CultureInfo culture)
-    //    {
-    //        throw new InvalidOperationException("Converter cannot convert back.");
-    //    }
-    //}
-
-    //public class ColorsConverter : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        if (value != null)
-    //        {
-    //            Type type = value.GetType();
-    //            bool isLiked = (bool)type.GetProperty("IsLiked").GetValue(value, null);
-    //            if (isLiked)
-    //                return Brushes.Blue;
-    //            else
-    //                return Brushes.White;
-    //        }
-    //        return Brushes.Transparent;
-
-    //    }
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
 }

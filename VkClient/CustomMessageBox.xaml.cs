@@ -23,7 +23,8 @@ namespace VkClient
         //TODO: dynamic expand
 
         private static MessageBoxResult result = MessageBoxResult.No;
-        private static CustomMessageBox _window;
+        private static Window _window;
+
 
         private CustomMessageBox()
         {
@@ -40,14 +41,15 @@ namespace VkClient
         public static void Show(string Title, string Description)
         {
             _window = new CustomMessageBox { Title = Title, DescriptionTb = { Text = Description } };
-            _window.Owner = MainWindow.MainWindowInstance;
+            MainWindow.SetOwned(ref  _window);     
+            //_window.Owner = MainWindow.MainWindowInstance;
             _window.ShowDialog();
         }
 
         public static MessageBoxResult Show(string Title, string Description, MessageBoxType type)
         {
             _window = new CustomMessageBox { Title = Title, DescriptionTb = { Text = Description }, OkBtn = { Visibility = Visibility.Hidden }, NoBtn = {Visibility=Visibility.Visible }, YesBtn = {Visibility = Visibility.Visible } };
-            _window.Owner = MainWindow.MainWindowInstance;
+            MainWindow.SetOwned(ref _window);
             _window.ShowDialog();
             return result;
         }
@@ -69,6 +71,7 @@ namespace VkClient
         Ok = 0,
         YesNo = 1
     }
+
 
 
 

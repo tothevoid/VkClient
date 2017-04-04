@@ -23,6 +23,8 @@ namespace VkClient
 
         public SavedPhotoVm()
         {
+            DateStart = DateTime.Now;
+            DateEnd = DateTime.Now;
             GetIDs();
         }
 
@@ -37,9 +39,21 @@ namespace VkClient
         private BitmapImage _photo;
         private SolidColorBrush _color;
         private Visibility _opened = Visibility.Collapsed;
+        private DateTime _dateStart;
+        private DateTime _dateEnd;
+        private DateTime _selectedDate;
+
+        public ICommand LoadPhotos => new CommandBase(Load);
+        public ICommand PrevPhoto => new CommandBase(Prev);
+        public ICommand NextPhoto => new CommandBase(Next);
+        public ICommand LoadMore => new CommandBase(LoadMorePhotos);
+        public ICommand Like => new CommandBase(SetLike);
+        public ICommand Copy => new CommandBase(CopyToSavedPhotos);
+        public ICommand CopyAll => new CommandBase(SaveAllPhotos);
+        public ICommand MyProfile => new CommandBase(LoadMyProfile);
 
         public ObservableCollection<string> ListOfIDs { get; set; } = new ObservableCollection<string>();
-        
+
         public Visibility Opened
         {
             get { return _opened; }
@@ -93,15 +107,41 @@ namespace VkClient
             set { Set(ref _photo, value); }
         }
 
-        public ICommand LoadPhotos => new CommandBase(Load);
-        public ICommand PrevPhoto => new CommandBase(Prev);
-        public ICommand NextPhoto => new CommandBase(Next);
-        public ICommand LoadMore => new CommandBase(LoadMorePhotos);
-        public ICommand Like => new CommandBase(SetLike);
-        public ICommand Copy => new CommandBase(CopyToSavedPhotos);
-        public ICommand CopyAll => new CommandBase(SaveAllPhotos);
-        public ICommand MyProfile => new CommandBase(LoadMyProfile);
+        public DateTime DateStart
+        {
+            get { return _dateStart; }
+            set { Set(ref _dateStart, value); }
+        }
 
+        public DateTime DateEnd
+        {
+            get { return _dateEnd; }
+            set { Set(ref _dateEnd, value); }
+        }
+
+        public DateTime SelectedDate
+        {
+            get { return _selectedDate; }
+            set { Set(ref _selectedDate, value); SearchByDate(); }
+        }
+
+        private void SearchByDate()
+        {
+            int counter = -1;
+
+            foreach (var x in photoList)
+            {
+               counter++;
+               if (x.Date <= SelectedDate.AddDays(1))
+               {
+                    _currentPhotoId = counter;
+                    Update();
+                    GetAdditionalInfo(_currentPhotoId);
+                    return;
+               }
+              
+            }
+        }
 
         public void SwitchVisibility()
         {
@@ -145,7 +185,6 @@ namespace VkClient
             {
                 CustomMessageBox.Show( "Likes exception","Too many likes per minute");
             }
-
         }
 
         public void Prev(object parameter)
@@ -213,7 +252,8 @@ namespace VkClient
             foreach (var elm in collection)
             {
                 bool islike = elm.Likes.UserLikes;
-                photoList.Add(new SavedPhoto(QualityControl(new[] { elm.Photo75, elm.Photo130, elm.Photo604, elm.Photo807, elm.Photo1280, elm.Photo2560 }), Convert.ToString(elm.CreateTime), elm.Likes.Count, (long)elm.Id, islike));
+                photoList.Add(new SavedPhoto(QualityControl(new[] { elm.Photo75, elm.Photo130, elm.Photo604, elm.Photo807, elm.Photo1280, elm.Photo2560 }), (DateTime) elm.CreateTime, elm.Likes.Count, (long)elm.Id, islike));
+                //photoList.Add(new SavedPhoto(QualityControl(new[] { elm.Photo75, elm.Photo130, elm.Photo604, elm.Photo807, elm.Photo1280, elm.Photo2560 }), Convert.ToString(elm.CreateTime), elm.Likes.Count, (long)elm.Id, islike));
             }
 
             if (photoList.Count == 0)
@@ -233,6 +273,9 @@ namespace VkClient
             {
                 CurrentPhoto = $"{_currentPhotoId + 1} / {photoList.Count}";
             }
+
+            DateStart = photoList[photoList.Count-1].Date;
+            DateEnd = photoList[0].Date;
         }
 
         private Uri QualityControl(Uri[] Array)
@@ -250,7 +293,8 @@ namespace VkClient
         private void GetAdditionalInfo(int index)
         {
             Likes = photoList[index].Likes;
-            Date = photoList[index].Date;
+            Date = Convert.ToString(photoList[index].Date);
+            //Date = photoList[index].Date;
             CurrentPhoto = $"{index + 1} / {photoList.Count}";
             Color = photoList[index].IsLiked
                 ? new SolidColorBrush(Colors.CornflowerBlue)
@@ -269,7 +313,7 @@ namespace VkClient
 
         private async void SaveAllPhotos(object parameter)
         {
-            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure?", "Save'em all", MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = CustomMessageBox.Show("Are you sure?", "Save'em all", MessageBoxType.YesNo);
             if (messageBoxResult == MessageBoxResult.No)
                 return;
             int count = 0;
@@ -279,7 +323,6 @@ namespace VkClient
             {
                 if (count % 3 == 0)
                 {
-                    // value = count/photoList.Count;
                     await Task.Delay(2000);
                 }
                 try
@@ -301,7 +344,7 @@ namespace VkClient
             Photo = new BitmapImage(photoList[_currentPhotoId].Link);
         }
 
-        public void LoadMyProfile(object parameter)
+        private void LoadMyProfile(object parameter)
         {
             if (api.UserId == null)
             {
@@ -312,5 +355,5 @@ namespace VkClient
             UserId = (long) api.UserId;
             Load(null);
         }
-}
+    }
 }
